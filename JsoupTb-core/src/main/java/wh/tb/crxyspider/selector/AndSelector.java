@@ -1,0 +1,58 @@
+package wh.tb.crxyspider.selector;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * All selectors will be arranged as a pipeline. <br>
+ * The next selector uses the result of the previous as source.
+ * @author 280320889@qq.com <br>
+ * @since 1.0
+ */
+public class AndSelector implements wh.tb.crxyspider.selector.Selector {
+
+    private List<wh.tb.crxyspider.selector.Selector> selectors = new ArrayList<>();
+
+    public AndSelector(wh.tb.crxyspider.selector.Selector... selectors) {
+        for (wh.tb.crxyspider.selector.Selector selector : selectors) {
+            this.selectors.add(selector);
+        }
+    }
+
+    public AndSelector(List<wh.tb.crxyspider.selector.Selector> selectors) {
+        this.selectors = selectors;
+    }
+
+    @Override
+    public String select(String text) {
+        for (wh.tb.crxyspider.selector.Selector selector : selectors) {
+            if (text == null) {
+                return null;
+            }
+            text = selector.select(text);
+        }
+        return text;
+    }
+
+    @Override
+    public List<String> selectList(String text) {
+        List<String> results = new ArrayList<String>();
+        boolean first = true;
+        for (Selector selector : selectors) {
+            if (first) {
+                results = selector.selectList(text);
+                first = false;
+            } else {
+                List<String> resultsTemp = new ArrayList<String>();
+                for (String result : results) {
+                    resultsTemp.addAll(selector.selectList(result));
+                }
+                results = resultsTemp;
+                if (results == null || results.size() == 0) {
+                    return results;
+                }
+            }
+        }
+        return results;
+    }
+}

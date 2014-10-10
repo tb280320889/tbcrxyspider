@@ -1,0 +1,33 @@
+version = '1.0'
+
+allprojects {
+    apply plugin: 'idea'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    repositories {
+        mavenCentral()
+    }
+    ext {
+            jsoupVersion = '1.8.1'
+            httpclientVersion ='4.3.3'
+            moco_coreVersion='0.9.2'
+            slf4j_parentVersion='1.7.6'
+            junitVersion = '4.11'
+    }
+
+    dependencies {
+        compile(
+                "org.jsoup:jsoup:${jsoupVersion}",
+                "org.apache.httpcomponents:httpclient:${httpclientVersion}",
+                "com.github.dreamhead:moco-core:${moco_coreVersion}",
+                "org.slf4j:slf4j-parent:${slf4j_parentVersion}",
+                fileTree(dir: "${rootProject.projectDir}/lib", include: '*.jar')
+        )
+        testCompile(
+                "junit:junit:${junitVersion}"
+        )
+    }
+}

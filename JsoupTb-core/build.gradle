@@ -1,0 +1,12 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+task copyJars(type: Copy) {
+    from configurations.runtime
+    into 'lib' // 目标位置
+}

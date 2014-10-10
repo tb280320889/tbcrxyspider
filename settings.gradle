@@ -1,0 +1,5 @@
+rootProject.name = 'TbProject'
+include 'JsoupTb-core'
+
+include 'JsoupTb-extension'
+
