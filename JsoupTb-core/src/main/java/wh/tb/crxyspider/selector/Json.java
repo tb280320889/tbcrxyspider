@@ -25,14 +25,14 @@ public class Json extends PlainText {
      * @param padding
      * @return
      */
-    public us.codecraft.webmagic.selector.Json removePadding(String padding) {
+    public wh.tb.crxyspider.selector.Json removePadding(String padding) {
         String text = getFirstSourceText();
         XTokenQueue tokenQueue = new XTokenQueue(text);
         tokenQueue.consumeWhitespace();
         tokenQueue.consume(padding);
         tokenQueue.consumeWhitespace();
         String chompBalanced = tokenQueue.chompBalancedNotInQuotes('(', ')');
-        return new us.codecraft.webmagic.selector.Json(chompBalanced);
+        return new wh.tb.crxyspider.selector.Json(chompBalanced);
     }
 
     public <T> T toObject(Class<T> clazz) {
