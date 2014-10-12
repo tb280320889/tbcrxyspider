@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class JsoupTest {
 	public static void main(String[] args) throws IOException {
-		File input = new File("HTMLS/tbtest.html");
+		File input = new File("JsoupTb-extension\\src\\test\\resources\\HTMLS\\tbtest.html");
 		Document doc = Jsoup.parse(input, "gb2312");
 		Elements links = doc.select("dt");
 			for( Element link : links){
